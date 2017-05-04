@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello World</title>
+<link rel="stylesheet" href="https://unpkg.com/codemirror@5.25.2/lib/codemirror.css">
+<link rel="stylesheet" href="https://unpkg.com/codemirror@5.25.2/theme/solarized.css">
+<style>
+</style>
+<script src="https://unpkg.com/codemirror@5.25.2/lib/codemirror.js"></script>
+<script src="https://unpkg.com/codemirror@5.25.2/mode/javascript/javascript.js"></script>
+
+<script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
+<script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
+<script src="https://unpkg.com/react-dom@latest/dist/react-dom-server.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+</head>
+<body>
+
+<textarea id="editor">
+const name = 'mundi'
+const App = () => {
+  return <div>Hello {name}</div>
+}
+</textarea>
+
+<div id="markup"></div>
+
+<div id="root"></div>
+
+<script>
+function escapeHtml(html){
+  var text = document.createTextNode(html);
+  var div = document.createElement('div');
+  div.appendChild(text);
+  return div.innerHTML;
+}
+
+var editor = CodeMirror.fromTextArea(document.getElementById('editor'),{
+  mode: 'javascript',
+  lineNumbers: 'true',
+  theme: 'solarized'
+});
+
+var evaluate = function(){
+  var value = editor.getValue()
+
+  var renderValue = `
+  ${value}
+  ReactDOM.render(<App />, document.getElementById('root'))
+  `;
+
+  var renderToStaticMarkupValue = `
+  ${value}
+  ReactDOMServer.renderToStaticMarkup(<App />)
+  `;
+
+  var renderOutput = Babel.transform(
+    renderValue, 
+    { presets: ['es2015', 'stage-2', 'react'] }
+  );
+  eval(renderOutput.code)
+
+  renderToStaticMarkupOutput = Babel.transform(
+    renderToStaticMarkupValue, 
+    { presets: ['es2015', 'stage-2', 'react'] }
+  );
+
+  document.getElementById('markup').innerHTML = escapeHtml(eval(renderToStaticMarkupOutput.code))
+
+}
+
+editor.on('change', evaluate)
+
+evaluate()
+
+</script>
+</body>
+</html>
