@@ -3,12 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <title>Hello World</title>
-<link rel="stylesheet" href="https://unpkg.com/codemirror@5.25.2/lib/codemirror.css">
-<link rel="stylesheet" href="https://unpkg.com/codemirror@5.25.2/theme/solarized.css">
+<link rel="stylesheet" href="https://unpkg.com/codemirror@latest/lib/codemirror.css">
+<link rel="stylesheet" href="https://unpkg.com/codemirror@latest/theme/solarized.css">
+<link rel="stylesheet" href="https://unpkg.com/prismjs@latest/themes/prism-solarizedlight.css">
 <style>
 </style>
-<script src="https://unpkg.com/codemirror@5.25.2/lib/codemirror.js"></script>
-<script src="https://unpkg.com/codemirror@5.25.2/mode/javascript/javascript.js"></script>
+<script src="https://unpkg.com/codemirror@latest/lib/codemirror.js"></script>
+<script src="https://unpkg.com/codemirror@latest/mode/javascript/javascript.js"></script>
+<script src="https://unpkg.com/prismjs@latest/prism.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.6.12/beautify-html.js"></script>
+
 
 <script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
 <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
@@ -20,11 +25,14 @@
 <textarea id="editor">
 const name = 'mundi'
 const App = () => {
-  return <div>Hello {name}</div>
+  return <div>
+    <h1>Cool Page</h1>
+    <p>Hello <b>{name}</b></p>
+  </div>
 }
 </textarea>
 
-<div id="markup"></div>
+<pre><code class="language-html" id="markup"></code></pre>
 
 <div id="root"></div>
 
@@ -68,7 +76,7 @@ var evaluate = function(){
     config
   );
 
-  document.getElementById('markup').innerHTML = escapeHtml(eval(renderToStaticMarkupOutput.code))
+  document.getElementById('markup').innerHTML = escapeHtml(html_beautify(eval(renderToStaticMarkupOutput.code)))
 
 }
 
