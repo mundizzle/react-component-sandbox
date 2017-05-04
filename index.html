@@ -42,6 +42,8 @@ var editor = CodeMirror.fromTextArea(document.getElementById('editor'),{
   theme: 'solarized'
 });
 
+var config = { presets: ['es2015', 'stage-2', 'react'] }
+
 var evaluate = function(){
   var value = editor.getValue()
 
@@ -57,13 +59,13 @@ var evaluate = function(){
 
   var renderOutput = Babel.transform(
     renderValue, 
-    { presets: ['es2015', 'stage-2', 'react'] }
+    config
   );
   eval(renderOutput.code)
 
   renderToStaticMarkupOutput = Babel.transform(
     renderToStaticMarkupValue, 
-    { presets: ['es2015', 'stage-2', 'react'] }
+    config
   );
 
   document.getElementById('markup').innerHTML = escapeHtml(eval(renderToStaticMarkupOutput.code))
