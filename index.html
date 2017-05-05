@@ -6,6 +6,17 @@
 
 <link rel="stylesheet" href="https://unpkg.com/codemirror@latest/lib/codemirror.css">
 <link rel="stylesheet" href="https://unpkg.com/codemirror@latest/theme/solarized.css">
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+#root {
+  border: 1px solid #eee;
+}
+.CodeMirror {
+  height: auto;
+}
+</style>
 
 <script src="https://unpkg.com/codemirror@latest/lib/codemirror.js"></script>
 <script src="https://unpkg.com/codemirror@latest/mode/javascript/javascript.js"></script>
@@ -14,18 +25,23 @@
 
 </head>
 <body>
+<h1>React Component Playground<h1>
 
+<h2>React</h2>
 <textarea id="reactEditor">
 const name = 'mundi'
 const App = () => {
   return <div>
-    <h1>Cool Page</h1>
+    <h1>Cool Page Bro!</h1>
     <p>Hello <b>{name}</b></p>
   </div>
 }
 </textarea>
+
+<h2>HTML Output</h2>
 <textarea id="markupEditor"></textarea>
 
+<h2>Live Example</h2>
 <div id="root"></div>
 
 
