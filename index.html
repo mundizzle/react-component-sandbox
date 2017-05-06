@@ -5,12 +5,12 @@
 <title>Hello World</title>
 
 <link rel="stylesheet" href="https://unpkg.com/codemirror@latest/lib/codemirror.css">
-<link rel="stylesheet" href="https://unpkg.com/codemirror@latest/theme/material.css">
 <style>
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Droid Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 #mountNode {
+  min-height: 100px;
 }
 .CodeMirror {
   border: 1px solid #eee;
@@ -29,14 +29,16 @@ body {
 
 </head>
 <body>
-<h1>Component Sandbox</h1>
+<h1>React Component Sandbox</h1>
+
+<h2>Available Components</h2>
+<ul id="availableComponents"></ul>
 
 <textarea id="reactEditor">
 const name = 'mundi'
 const App = () => {
   return <div>
-    <h1>Cool Page Bro!</h1>
-    <p>Hello <b>{name}</b></p>
+    get crackin...
   </div>
 }
 ReactDOM.render(<App />, mountNode)

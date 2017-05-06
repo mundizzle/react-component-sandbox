@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactDOMServer from 'react-dom/server'
+
+import * as components from './components'
+
+Object.keys(components).forEach(component => {
+  window[component] = components[component]
+})
 
 window.React = React
 window.ReactDOM = ReactDOM
@@ -10,8 +15,7 @@ const reactEditor = CodeMirror.fromTextArea(
   document.getElementById('reactEditor'),
   {
     mode: 'javascript',
-    lineNumbers: 'true',
-    theme: 'material'
+    lineNumbers: 'true'
   }
 )
 
@@ -20,7 +24,6 @@ const markupEditor = CodeMirror.fromTextArea(
   {
     mode: 'xml',
     htmlMode: true,
-    theme: 'material',
     readOnly: true
   }
 )
@@ -44,3 +47,11 @@ const evaluate = () => {
 
 reactEditor.on('change', evaluate)
 evaluate()
+
+const availableComponents = document.getElementById('availableComponents')
+Object.keys(components).forEach(component => {
+  var item = document.createElement('li')
+  var text = document.createTextNode(`<${component} />`)
+  item.appendChild(text)
+  availableComponents.appendChild(item)
+})

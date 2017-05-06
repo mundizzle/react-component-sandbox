@@ -18460,17 +18460,25 @@ var ReactDOM_1 = ReactDOM$1;
 
 var index$2 = ReactDOM_1;
 
-/**
- * Copyright 2014-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
+var index$3 = (function (_ref) {
+  var children = _ref.children;
 
-ReactDefaultInjection.inject();
+  return react.createElement(
+    'button',
+    null,
+    children
+  );
+});
+
+
+
+var components = Object.freeze({
+	Button: index$3
+});
+
+Object.keys(components).forEach(function (component) {
+  window[component] = components[component];
+});
 
 window.React = react;
 window.ReactDOM = index$2;
@@ -18478,14 +18486,12 @@ window.mountNode = document.getElementById('mountNode');
 
 var reactEditor = CodeMirror.fromTextArea(document.getElementById('reactEditor'), {
   mode: 'javascript',
-  lineNumbers: 'true',
-  theme: 'material'
+  lineNumbers: 'true'
 });
 
 var markupEditor = CodeMirror.fromTextArea(document.getElementById('markupEditor'), {
   mode: 'xml',
   htmlMode: true,
-  theme: 'material',
   readOnly: true
 });
 
@@ -18504,5 +18510,13 @@ var evaluate = function evaluate() {
 
 reactEditor.on('change', evaluate);
 evaluate();
+
+var availableComponents = document.getElementById('availableComponents');
+Object.keys(components).forEach(function (component) {
+  var item = document.createElement('li');
+  var text = document.createTextNode('<' + component + ' />');
+  item.appendChild(text);
+  availableComponents.appendChild(item);
+});
 
 }());
